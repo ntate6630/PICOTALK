@@ -5,7 +5,6 @@ restart 	EQU      	0000h           ; CP/M restart vector
 bdos            EQU         	0005h           ; BDOS invocation vector
 iobyte  	EQU           	0003h           ; IOBYTE address
 stack           EQU           	0h              ; Stack top
-stksav  	EQU          	0h              ; Stack pointer saved at start
 statA           EQU           	0C4h            ; UART A status
 statB           EQU           	0C5h            ; UART B status
 rxA             EQU             0C8h            ; UART A read data
@@ -20,7 +19,6 @@ main:
             	ld             	sp,(stack)   	; Set new stack
             	call            init            ; Initialization
                 jr           	nz,exit 	; Abort if init fails
-
             	ld          	de,msghello     ; Display startup message
               	call            prtstr  	; Print it
                 ld              a,0Ah           ; Carriage return
@@ -55,7 +53,7 @@ prtchar:   	; Print a character in register 'A'
              	push            hl
            	ld            	e,a
              	ld             	c,02h		; BDOS function to output a
-            	call            bdos		; Character
+            	call            bdos		; character
            	pop       	hl
             	pop        	de
            	pop        	bc
@@ -117,7 +115,8 @@ asciTXA:
 
 ; Storage section
 
-cbftbl: defw   	0h                      	; Addr of CBIOS function table
+cbftbl: 	defw   		0h           	; Addr of CBIOS function table
+stksav:         defw          	0              	; Stack pointer saved at start
 msghello:      	defm          	'PICOTALK v1.0 connected to UC1$'
 
            	END
