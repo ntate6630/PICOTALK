@@ -4,7 +4,7 @@ stksiz		EQU 		40h           	; Working stack size
 restart 	EQU      	0000h           ; CP/M restart vector
 bdos            EQU         	0005h           ; BDOS invocation vector
 iobyte  	EQU           	0003h           ; IOBYTE address
-stack           EQU           	0h              ; Stack top
+stack           EQU           	01DCh          	; Stack top
 statA           EQU           	0C4h            ; UART A status
 statB           EQU           	0C5h            ; UART B status
 rxA             EQU             0C8h            ; UART A read data
